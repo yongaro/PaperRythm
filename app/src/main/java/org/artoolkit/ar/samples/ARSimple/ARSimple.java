@@ -55,6 +55,7 @@ import org.artoolkit.ar.samples.R;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
@@ -62,6 +63,15 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import android.app.Activity;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
+import android.os.Bundle;
+
+import java.io.IOException;
 
 /**
  * A very simple example of extending ARActivity to create a new AR application.
@@ -79,11 +89,15 @@ public class ARSimple extends ARActivity {
      * The FrameLayout where the AR view is displayed.
      */
     private FrameLayout mainLayout;
+	boolean loaded = false;
+	int explosionId;
+	MediaPlayer m;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);      
 		setContentView(R.layout.main);
+		m = MediaPlayer.create(this, R.raw.monson);
 
 		mainLayout = (FrameLayout)this.findViewById(R.id.mainLayout);
 
@@ -99,8 +113,38 @@ public class ARSimple extends ARActivity {
             public void onClick(View v) {
 
                 simpleRenderer.click();
+				m.start();
 
-                Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+				/*
+
+				setVolumeControlStream(AudioManager.STREAM_MUSIC);
+				SoundPool soundPool = new SoundPool(20, AudioManager.STREAM_MUSIC, 0);
+
+				AssetManager assetManager = getAssets();
+
+				AssetFileDescriptor descriptor=null;
+				try {
+					descriptor = assetManager.openFd("raw/monson.ogg");
+
+					explosionId = soundPool.load(descriptor, 1);
+
+					soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+						public void onLoadComplete(SoundPool soundPool, int sampleId,int status) {
+							loaded = true;
+							soundPool.play(explosionId, 1, 1, 0, 0, 1);
+						}
+					});
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+
+
+
+
+				Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 vib.vibrate(40);
             }
 
