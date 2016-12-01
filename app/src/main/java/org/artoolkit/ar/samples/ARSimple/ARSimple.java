@@ -63,15 +63,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
-import android.os.Bundle;
 
-import java.io.IOException;
 
 /**
  * A very simple example of extending ARActivity to create a new AR application.
@@ -112,8 +104,8 @@ public class ARSimple extends ARActivity {
 		mainLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                simpleRenderer.click();
-				m.start();
+                simpleRenderer.click(m);
+
 
 				/*
 

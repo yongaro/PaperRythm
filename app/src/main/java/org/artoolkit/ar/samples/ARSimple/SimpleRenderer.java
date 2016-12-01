@@ -49,34 +49,61 @@
 
 package org.artoolkit.ar.samples.ARSimple;
 
+import android.media.MediaPlayer;
+import android.util.Log;
+
 import javax.microedition.khronos.opengles.GL10;
 
 import org.artoolkit.ar.base.ARToolKit;
 import org.artoolkit.ar.base.rendering.ARRenderer;
 import org.artoolkit.ar.base.rendering.Cube;
 
+import java.io.Console;
+import java.util.Vector;
+
 /**
  * A very simple Renderer that adds a marker and draws a cube on it.
  */
 public class SimpleRenderer extends ARRenderer {
+	private ARToolKit arToolKit = ARToolKit.getInstance();
 
 	private int markerID = -1;
+	private int markerID2 = -1;
+	private int markerID3 = -1;
+	private int markerID4 = -1;
 
 	private Cube cube = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
 	private float angle = 0.0f;
 	private boolean spinning = false;
+	private Vector<Integer> markers;
 
 	@Override
 	public boolean configureARScene() {
 
-		markerID = ARToolKit.getInstance().addMarker("single;Data/patt.kanji;80");
-		if (markerID < 0) return false;
+		markerID2 = arToolKit.addMarker("single;Data/patt.kanji;80");
+		markerID = arToolKit.addMarker("single;Data/patt.hiro;80");
+		markerID3 = arToolKit.addMarker("single;Data/multi/patt.a;40");
+		markerID4 = arToolKit.addMarker("single;Data/patt.patt.b;40");
+		//markers.add(arToolKit.addMarker("single;Data/patt.kanji;80"));
+		//markers.add(arToolKit.addMarker("single;Data/patt.hiro;80"));
+		//markerID = arToolKit.addMarker("single;Data/patt.hiro;80");
+		//if (markerID < 0) return false;
+
+		/*markers.add(ARToolKit.getInstance().addMarker("single;Data/multi/a.patt"));
+		markers.add(ARToolKit.getInstance().addMarker("single;Data/multi/patt.b"));
+		markers.add(ARToolKit.getInstance().addMarker("single;Data/multi/patt.c"));
+		markers.add(ARToolKit.getInstance().addMarker("single;Data/multi/patt.d"));
+		markers.add(ARToolKit.getInstance().addMarker("single;Data/multi/patt.g"));
+		markers.add(ARToolKit.getInstance().addMarker("single;Data/multi/patt.f"));
+		*/
 
 		return true;
 
 	}
 
-	public void click() {
+	public void click(MediaPlayer m) {
+		m.start();
+		Log.i("aa", "click click pouet pouet");
 		spinning = !spinning;
 	}
 
@@ -85,7 +112,7 @@ public class SimpleRenderer extends ARRenderer {
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 		gl.glMatrixMode(GL10.GL_PROJECTION);
-		gl.glLoadMatrixf(ARToolKit.getInstance().getProjectionMatrix(), 0);
+		gl.glLoadMatrixf(arToolKit.getProjectionMatrix(), 0);
 
 		gl.glEnable(GL10.GL_CULL_FACE);
 		gl.glShadeModel(GL10.GL_SMOOTH);
@@ -94,9 +121,13 @@ public class SimpleRenderer extends ARRenderer {
 
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 
-		if (ARToolKit.getInstance().queryMarkerVisible(markerID)) {
+		if (arToolKit.queryMarkerVisible(markerID)) {
 
-			gl.glLoadMatrixf(ARToolKit.getInstance().queryMarkerTransformation(markerID), 0);
+			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID), 0);
+			float[] transform = arToolKit.queryMarkerTransformation(markerID);
+			for (int i = 0; i < transform.length; ++i) {
+				Log.i(String.valueOf(i), String.valueOf(transform[i]));
+			}
 
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
@@ -105,6 +136,69 @@ public class SimpleRenderer extends ARRenderer {
 
 			if (spinning) angle += 5.0f;
 		}
+
+		if (arToolKit.queryMarkerVisible(markerID2)) {
+
+			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID2), 0);
+
+			gl.glPushMatrix();
+			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
+			cube.draw(gl);
+			gl.glPopMatrix();
+
+			if (spinning) angle += 5.0f;
+		}
+
+		if (arToolKit.queryMarkerVisible(markerID3)) {
+
+			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID3), 0);
+
+
+			gl.glPushMatrix();
+			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
+			cube.draw(gl);
+			gl.glPopMatrix();
+
+			if (spinning) angle += 5.0f;
+		}
+
+		if (arToolKit.queryMarkerVisible(markerID4)) {
+
+			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID4), 0);
+
+			gl.glPushMatrix();
+			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
+			cube.draw(gl);
+			gl.glPopMatrix();
+
+			if (spinning) angle += 5.0f;
+		}
+		/*
+		for (int i = 0; i < markers.size() -1; ++i) {
+			if (arToolKit.queryMarkerVisible(markers.get(i).intValue())) {
+
+				gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markers.get(i).intValue()), 0);
+
+				gl.glPushMatrix();
+				gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
+				cube.draw(gl);
+				gl.glPopMatrix();
+
+				if (spinning) angle += 5.0f;
+			}
+			/*
+			if (arToolKit.queryMarkerVisible(markers.elementAt(i))) {
+
+				gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markers.elementAt(i)), 0);
+
+				gl.glPushMatrix();
+				gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
+				cube.draw(gl);
+				gl.glPopMatrix();
+
+				if (spinning) angle += 5.0f;
+			}*/
+		//}
 
 
 	}
