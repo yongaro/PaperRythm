@@ -57,6 +57,7 @@ import javax.microedition.khronos.opengles.GL10;
 import org.artoolkit.ar.base.ARToolKit;
 import org.artoolkit.ar.base.rendering.ARRenderer;
 import org.artoolkit.ar.base.rendering.Cube;
+import org.artoolkit.ar.samples.R;
 
 import java.io.Console;
 import java.util.Vector;
@@ -72,11 +73,17 @@ public class SimpleRenderer extends ARRenderer {
 	private int markerID3 = -1;
 	private int markerID4 = -1;
 
+	MediaPlayer m1 = null;
+	MediaPlayer m2 = null;
 	private Cube cube = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
 	private float angle = 0.0f;
 	private boolean spinning = false;
 	private Vector<Integer> markers;
 
+	public void bindPlayers(MediaPlayer m1, MediaPlayer m2) {
+		this.m1 = m1;
+		this.m2 = m2;
+	}
 	@Override
 	public boolean configureARScene() {
 
@@ -84,6 +91,8 @@ public class SimpleRenderer extends ARRenderer {
 		markerID = arToolKit.addMarker("single;Data/patt.hiro;80");
 		markerID3 = arToolKit.addMarker("single;Data/multi/patt.a;40");
 		markerID4 = arToolKit.addMarker("single;Data/patt.patt.b;40");
+
+
 		//markers.add(arToolKit.addMarker("single;Data/patt.kanji;80"));
 		//markers.add(arToolKit.addMarker("single;Data/patt.hiro;80"));
 		//markerID = arToolKit.addMarker("single;Data/patt.hiro;80");
@@ -135,6 +144,8 @@ public class SimpleRenderer extends ARRenderer {
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
+		} else {
+			ARSimple.playM2();
 		}
 
 		if (arToolKit.queryMarkerVisible(markerID2)) {
@@ -147,6 +158,8 @@ public class SimpleRenderer extends ARRenderer {
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
+		} else {
+			ARSimple.playM1();
 		}
 
 		if (arToolKit.queryMarkerVisible(markerID3)) {

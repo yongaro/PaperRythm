@@ -83,14 +83,21 @@ public class ARSimple extends ARActivity {
     private FrameLayout mainLayout;
 	boolean loaded = false;
 	int explosionId;
-	MediaPlayer m;
-
+	static MediaPlayer m, m1, m2;
+	public static void playM1() {
+		m1.start();
+	}
+	public static void playM2() {
+		m2.start();
+	}
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);      
 		setContentView(R.layout.main);
 		m = MediaPlayer.create(this, R.raw.monson);
-
+		m1 = MediaPlayer.create(this, R.raw.marker1);
+		m2 = MediaPlayer.create(this, R.raw.marker2);
+		simpleRenderer.bindPlayers(m1, m2);
 		mainLayout = (FrameLayout)this.findViewById(R.id.mainLayout);
 
 		if (!checkCameraPermission()) {
@@ -104,7 +111,7 @@ public class ARSimple extends ARActivity {
 		mainLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                simpleRenderer.click(m);
+                simpleRenderer.click(m1);
 
 
 				/*
