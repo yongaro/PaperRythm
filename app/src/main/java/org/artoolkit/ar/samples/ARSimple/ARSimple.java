@@ -64,6 +64,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.util.Vector;
+
 
 /**
  * A very simple example of extending ARActivity to create a new AR application.
@@ -83,20 +85,49 @@ public class ARSimple extends ARActivity {
     private FrameLayout mainLayout;
 	boolean loaded = false;
 	int explosionId;
-	static MediaPlayer m, m1, m2;
+
+	// Obligé de les jouer depuis une Activity
+	static MediaPlayer m1, m2, m3, m4, m5, m6, m7, m8, m9, m0;
+	public static void playM0() { m0.start(); }
 	public static void playM1() {
 		m1.start();
 	}
 	public static void playM2() {
-		m2.start();
+		m7.start();
 	}
+	public static void playM3() {
+		m3.start();
+	}
+	public static void playM4() {
+		m4.start();
+	}
+	public static void playM5() {
+		m5.start();
+	}
+	public static void playM6() {
+		m6.start();
+	}
+	public static void playM7() {
+		m7.start();
+	}
+	public static void playM8() {
+		m8.start();
+	}
+	public static void playM9() {
+		m9.start();
+	}
+
+	ARSimple app;
+	int profile = 0;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);      
 		setContentView(R.layout.main);
-		m = MediaPlayer.create(this, R.raw.monson);
+		m0 = MediaPlayer.create(this, R.raw.monson);
 		m1 = MediaPlayer.create(this, R.raw.marker1);
 		m2 = MediaPlayer.create(this, R.raw.marker2);
+
 		simpleRenderer.bindPlayers(m1, m2);
 		mainLayout = (FrameLayout)this.findViewById(R.id.mainLayout);
 
@@ -107,12 +138,18 @@ public class ARSimple extends ARActivity {
 					MY_PERMISSIONS_REQUEST_CAMERA);
 		}
 
+		 app = this;
+
 		// When the screen is tapped, inform the renderer and vibrate the phone
 		mainLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 simpleRenderer.click(m1);
-
+				Vector<Integer> newSound = DicoSon.getProfile(++profile);
+				for (int i = 0; i < newSound.size(); ++i) {
+					m1 = MediaPlayer.create(app, newSound.get(0));
+					m2 = MediaPlayer.create(app, newSound.get(1));
+				}
 
 				/*
 
