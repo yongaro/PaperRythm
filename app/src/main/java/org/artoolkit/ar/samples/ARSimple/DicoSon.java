@@ -13,17 +13,40 @@ import java.util.Vector;
 
 public class DicoSon {
     static int samplesByProfil = 2;
-    static int nbProfile = 2;
+    static int nbProfile = 4;
     static boolean isInitialized = false;
 
-    static Vector<Integer> soundBank;
+    static Vector<Vector<Integer>> soundBank;
 
     public static void initialize () {
-        soundBank = new Vector<Integer>();
-        soundBank.add(R.raw.marker1);
-        soundBank.add(R.raw.marker2);
-        soundBank.add(R.raw.monson);
-        soundBank.add(R.raw.monson);
+        soundBank = new Vector<Vector<Integer>>();
+
+        // Paramètrage du Profil 0 :
+        Vector<Integer> profil0 = new Vector<Integer>();
+        profil0.add(R.raw.marker1);
+        profil0.add(R.raw.rire);
+        soundBank.add(profil0);
+
+
+        // Paramètrage du Profil 1 :
+        Vector<Integer> profil1 = new Vector<Integer>();
+        profil1.add(R.raw.zic2);
+        profil1.add(R.raw.triangle);
+        soundBank.add(profil1);
+
+        // Paramètrage du Profil 2 :
+        Vector<Integer> profil2 = new Vector<Integer>();
+        profil2.add(R.raw.zic1);
+        profil2.add(R.raw.clap);
+        soundBank.add(profil2);
+
+        // Paramètrage du Profil 3 :
+        Vector<Integer> profil3 = new Vector<Integer>();
+        profil3.add(R.raw.melody);
+        profil3.add(R.raw.bass1);
+        soundBank.add(profil3);
+
+
         isInitialized = true;
     }
 
@@ -33,7 +56,7 @@ public class DicoSon {
         }
         Vector<Integer> soundSample = new Vector<Integer>();
         for (int i = 0; i < samplesByProfil; ++i) {
-            soundSample.add(soundBank.get((profileId % nbProfile) + i));
+            soundSample.add((soundBank.get((profileId % nbProfile)).get(i)));
         }
         return soundSample;
     }

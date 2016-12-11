@@ -70,8 +70,8 @@ public class SimpleRenderer extends ARRenderer {
 
 	private int markerID = -1;
 	private int markerID2 = -1;
-	private int markerID3 = -1;
-	private int markerID4 = -1;
+	//private int markerID3 = -1;
+	//private int markerID4 = -1;
 
 	MediaPlayer m1 = null;
 	MediaPlayer m2 = null;
@@ -89,8 +89,8 @@ public class SimpleRenderer extends ARRenderer {
 
 		markerID2 = arToolKit.addMarker("single;Data/patt.kanji;80");
 		markerID = arToolKit.addMarker("single;Data/patt.hiro;80");
-		markerID3 = arToolKit.addMarker("single;Data/multi/patt.a;40");
-		markerID4 = arToolKit.addMarker("single;Data/patt.patt.b;40");
+	//	markerID3 = arToolKit.addMarker("single;Data/multi/patt.a;40");
+	//	markerID4 = arToolKit.addMarker("single;Data/patt.patt.b;40");
 
 
 		//markers.add(arToolKit.addMarker("single;Data/patt.kanji;80"));
@@ -111,7 +111,7 @@ public class SimpleRenderer extends ARRenderer {
 	}
 
 	public void click(MediaPlayer m) {
-		m.start();
+		//m.start();
 		Log.i("aa", "click click pouet pouet");
 		spinning = !spinning;
 	}
@@ -134,16 +134,20 @@ public class SimpleRenderer extends ARRenderer {
 
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID), 0);
 			float[] transform = arToolKit.queryMarkerTransformation(markerID);
+
+			/*
 			for (int i = 0; i < transform.length; ++i) {
+
 				Log.i(String.valueOf(i), String.valueOf(transform[i]));
 			}
-
+			*/
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
 			cube.draw(gl);
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
+			ARSimple.pauseM2();
 		} else {
 			ARSimple.playM2();
 		}
@@ -157,11 +161,12 @@ public class SimpleRenderer extends ARRenderer {
 			cube.draw(gl);
 			gl.glPopMatrix();
 
+			ARSimple.pauseM1();
 			if (spinning) angle += 5.0f;
 		} else {
 			ARSimple.playM1();
 		}
-
+/*
 		if (arToolKit.queryMarkerVisible(markerID3)) {
 
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID3), 0);
@@ -185,7 +190,8 @@ public class SimpleRenderer extends ARRenderer {
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
-		}
+		}*/
+
 		/*
 		for (int i = 0; i < markers.size() -1; ++i) {
 			if (arToolKit.queryMarkerVisible(markers.get(i).intValue())) {

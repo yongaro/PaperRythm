@@ -60,6 +60,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -88,33 +89,106 @@ public class ARSimple extends ARActivity {
 
 	// Obligé de les jouer depuis une Activity
 	static MediaPlayer m1, m2, m3, m4, m5, m6, m7, m8, m9, m0;
-	public static void playM0() { m0.start(); }
+
+	private static void pause(MediaPlayer media) {
+		if (media != null) {
+			if (media.isPlaying()) {
+				media.pause();
+			} else {
+				Log.w("MediaPlayer : ", " l'instance n'est pas en mode lecture");
+			}
+		} else {
+			Log.w("MediaPlayer : ", " l'instance n'a pas été initialisée");
+		}
+	}
+
+	public static void pauseM0() {
+		pause(m0);
+	}
+
+	public static void pauseM1() {
+		pause(m1);
+	}
+
+	public static void pauseM2() {
+		pause(m2);
+	}
+
+	public static void pauseM3() {
+		pause(m3);
+	}
+
+	public static void pauseM4() {
+		pause(m4);
+	}
+
+	public static void pauseM5() {
+		pause(m5);
+	}
+
+	public static void pauseM6() {
+		pause(m6);
+	}
+
+	public static void pauseM7() {
+		pause(m7);
+	}
+
+	public static void pauseM8() {
+		pause(m8);
+	}
+
+	public static void pauseM9() {
+		pause(m9);
+	}
+
+
+	private static void play(MediaPlayer media) {
+		if (media != null) {
+			media.start();
+		} else {
+			Log.w("MediaPlayer : ", " l'instance n'a pas été initialisée");
+		}
+	}
+
+	public static void playM0() {
+		play(m0);
+	}
+
 	public static void playM1() {
-		m1.start();
+		play(m1);
 	}
+
 	public static void playM2() {
-		m7.start();
+		play(m2);
 	}
+
 	public static void playM3() {
-		m3.start();
+		play(m3);
 	}
+
 	public static void playM4() {
-		m4.start();
+		play(m4);
 	}
+
 	public static void playM5() {
-		m5.start();
+		play(m5);
 	}
+
 	public static void playM6() {
-		m6.start();
+		play(m6);
 	}
+
 	public static void playM7() {
-		m7.start();
+		play(m7);
 	}
+
 	public static void playM8() {
-		m8.start();
+		play(m8);
 	}
+
 	public static void playM9() {
-		m9.start();
+		play(m9);
 	}
 
 	ARSimple app;
@@ -147,9 +221,15 @@ public class ARSimple extends ARActivity {
                 simpleRenderer.click(m1);
 				Vector<Integer> newSound = DicoSon.getProfile(++profile);
 				for (int i = 0; i < newSound.size(); ++i) {
+					m1.release();
+					m2.release();
+
 					m1 = MediaPlayer.create(app, newSound.get(0));
 					m2 = MediaPlayer.create(app, newSound.get(1));
 				}
+
+				Toast.makeText(app, "Profil :" + Integer.toString((profile % 4) + 1), Toast.LENGTH_SHORT);
+				Log.i("Profil :", Integer.toString((profile % 4) + 1));
 
 				/*
 
