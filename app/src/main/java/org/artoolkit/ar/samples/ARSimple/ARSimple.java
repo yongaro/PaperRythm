@@ -57,6 +57,8 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -65,6 +67,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 
@@ -89,10 +93,17 @@ public class ARSimple extends ARActivity {
 
 	// Obligé de les jouer depuis une Activity
 	static MediaPlayer m1, m2, m3, m4, m5, m6, m7, m8, m9, m0;
+	static CountDownTimer t1, t2, t3, t4, t5, t6, t7, t8, t9, t0;
 
-	private static void pause(MediaPlayer media) {
+	private static void pause(MediaPlayer media, CountDownTimer timer) {
 		if (media != null) {
 			if (media.isPlaying()) {
+				/*
+				if (timer != null) {
+					timer.cancel();
+					timer = null;
+				}
+				*/
 				media.pause();
 			} else {
 				Log.w("MediaPlayer : ", " l'instance n'est pas en mode lecture");
@@ -103,95 +114,110 @@ public class ARSimple extends ARActivity {
 	}
 
 	public static void pauseM0() {
-		pause(m0);
+		pause(m0, t0);
 	}
 
 	public static void pauseM1() {
-		pause(m1);
+		pause(m1, t1);
 	}
 
 	public static void pauseM2() {
-		pause(m2);
+		pause(m2, t2);
 	}
 
 	public static void pauseM3() {
-		pause(m3);
+		pause(m3, t3);
 	}
 
 	public static void pauseM4() {
-		pause(m4);
+		pause(m4, t4);
 	}
 
 	public static void pauseM5() {
-		pause(m5);
+		pause(m5, t5);
 	}
 
 	public static void pauseM6() {
-		pause(m6);
+		pause(m6, t6);
 	}
 
 	public static void pauseM7() {
-		pause(m7);
+		pause(m7, t7);
 	}
 
 	public static void pauseM8() {
-		pause(m8);
+		pause(m8, t8);
 	}
 
 	public static void pauseM9() {
-		pause(m9);
+		pause(m9, t9);
 	}
 
 
-	private static void play(MediaPlayer media) {
+	private static void play(final MediaPlayer media, CountDownTimer timer) {
+
 		if (media != null) {
 			media.start();
+
+			/*t1 = new CountDownTimer(30000, 1000) {
+				@Override
+				public void onTick(long l) {
+					//Toast.makeText(app, "seconds remaining: " + l / 1000, Toast.LENGTH_SHORT).show();
+				}
+
+				@Override
+				public void onFinish() {
+					//media.start();
+				}
+			}.start();
+*/
+			//timer = app.new MyTimer(30000, 1000);
 		} else {
 			Log.w("MediaPlayer : ", " l'instance n'a pas été initialisée");
 		}
 	}
 
 	public static void playM0() {
-		play(m0);
+		play(m0, t0);
 	}
 
 	public static void playM1() {
-		play(m1);
+		play(m1, t1);
 	}
 
 	public static void playM2() {
-		play(m2);
+		play(m2, t2);
 	}
 
 	public static void playM3() {
-		play(m3);
+		play(m3, t3);
 	}
 
 	public static void playM4() {
-		play(m4);
+		play(m4, t4);
 	}
 
 	public static void playM5() {
-		play(m5);
+		play(m5, t5);
 	}
 
 	public static void playM6() {
-		play(m6);
+		play(m6, t6);
 	}
 
 	public static void playM7() {
-		play(m7);
+		play(m7, t7);
 	}
 
 	public static void playM8() {
-		play(m8);
+		play(m8, t8);
 	}
 
 	public static void playM9() {
-		play(m9);
+		play(m9, t9);
 	}
 
-	ARSimple app;
+	static ARSimple app;
 	int profile = 0;
 
 	@Override
@@ -221,14 +247,21 @@ public class ARSimple extends ARActivity {
                 simpleRenderer.click(m1);
 				Vector<Integer> newSound = DicoSon.getProfile(++profile);
 				for (int i = 0; i < newSound.size(); ++i) {
-					m1.release();
-					m2.release();
+
+					m0.stop();
+					m1.stop();
+					m2.stop();
+
+					m0.reset();
+					m1.reset();
+					m2.reset();
 
 					m1 = MediaPlayer.create(app, newSound.get(0));
 					m2 = MediaPlayer.create(app, newSound.get(1));
+					m0 = MediaPlayer.create(app, newSound.get(2));
 				}
 
-				Toast.makeText(app, "Profil :" + Integer.toString((profile % 4) + 1), Toast.LENGTH_SHORT);
+				Toast.makeText(app, "Profil :" + Integer.toString((profile % 4) + 1), Toast.LENGTH_SHORT).show();
 				Log.i("Profil :", Integer.toString((profile % 4) + 1));
 
 				/*
@@ -303,5 +336,25 @@ public class ARSimple extends ARActivity {
 				return;
 			}
 		}
+	}
+
+	public class MyTimer extends CountDownTimer {
+		public MyTimer(long millisInFuture, long countDownInterval) {
+
+			super(millisInFuture, countDownInterval);
+			// TODO Auto-generated constructor stub
+			Looper.prepare();
+		}
+
+		@Override
+		public void onFinish() {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onTick(long millisUntilFinished) {
+			// TODO Auto-generated method stub
+		}
+
 	}
 }

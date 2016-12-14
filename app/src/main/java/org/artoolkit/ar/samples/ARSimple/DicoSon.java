@@ -12,7 +12,7 @@ import java.util.Vector;
  */
 
 public class DicoSon {
-    static int samplesByProfil = 2;
+    static int samplesByProfil = 3;
     static int nbProfile = 4;
     static boolean isInitialized = false;
 
@@ -25,6 +25,8 @@ public class DicoSon {
         Vector<Integer> profil0 = new Vector<Integer>();
         profil0.add(R.raw.marker1);
         profil0.add(R.raw.rire);
+
+        profil0.add(R.raw.bass1);
         soundBank.add(profil0);
 
 
@@ -32,18 +34,22 @@ public class DicoSon {
         Vector<Integer> profil1 = new Vector<Integer>();
         profil1.add(R.raw.zic2);
         profil1.add(R.raw.triangle);
+
+        profil1.add(R.raw.bass1);
         soundBank.add(profil1);
 
         // Paramètrage du Profil 2 :
         Vector<Integer> profil2 = new Vector<Integer>();
         profil2.add(R.raw.zic1);
         profil2.add(R.raw.clap);
+        profil2.add(R.raw.triangle);
         soundBank.add(profil2);
 
         // Paramètrage du Profil 3 :
         Vector<Integer> profil3 = new Vector<Integer>();
         profil3.add(R.raw.melody);
         profil3.add(R.raw.bass1);
+        profil3.add(R.raw.triangle);
         soundBank.add(profil3);
 
 

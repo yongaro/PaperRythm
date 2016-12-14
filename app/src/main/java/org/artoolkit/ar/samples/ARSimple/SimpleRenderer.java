@@ -50,9 +50,11 @@
 package org.artoolkit.ar.samples.ARSimple;
 
 import android.media.MediaPlayer;
+import android.renderscript.Matrix4f;
 import android.util.Log;
 
 import javax.microedition.khronos.opengles.GL10;
+import javax.microedition.khronos.opengles.GL11;
 
 import org.artoolkit.ar.base.ARToolKit;
 import org.artoolkit.ar.base.rendering.ARRenderer;
@@ -60,6 +62,9 @@ import org.artoolkit.ar.base.rendering.Cube;
 import org.artoolkit.ar.samples.R;
 
 import java.io.Console;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
 import java.util.Vector;
 
 /**
@@ -70,7 +75,7 @@ public class SimpleRenderer extends ARRenderer {
 
 	private int markerID = -1;
 	private int markerID2 = -1;
-	//private int markerID3 = -1;
+	private int markerID3 = -1;
 	//private int markerID4 = -1;
 
 	MediaPlayer m1 = null;
@@ -87,9 +92,9 @@ public class SimpleRenderer extends ARRenderer {
 	@Override
 	public boolean configureARScene() {
 
-		markerID2 = arToolKit.addMarker("single;Data/patt.kanji;80");
-		markerID = arToolKit.addMarker("single;Data/patt.hiro;80");
-	//	markerID3 = arToolKit.addMarker("single;Data/multi/patt.a;40");
+		markerID2 = arToolKit.addMarker("single;Data/sample1.patt;80");
+		markerID = arToolKit.addMarker("single;Data/sample2.patt;80");
+		markerID3 = arToolKit.addMarker("single;Data/patt.a;40");
 	//	markerID4 = arToolKit.addMarker("single;Data/patt.patt.b;40");
 
 
@@ -135,12 +140,14 @@ public class SimpleRenderer extends ARRenderer {
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID), 0);
 			float[] transform = arToolKit.queryMarkerTransformation(markerID);
 
-			/*
-			for (int i = 0; i < transform.length; ++i) {
 
-				Log.i(String.valueOf(i), String.valueOf(transform[i]));
-			}
-			*/
+			//for (int i = 0; i < transform.length; ++i) {
+
+			Log.i("x", String.valueOf(transform[3]));
+			Log.i("y", String.valueOf(transform[9]));
+			Log.i("z", String.valueOf(transform[12]));
+			//}
+
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
 			cube.draw(gl);
@@ -153,7 +160,14 @@ public class SimpleRenderer extends ARRenderer {
 		}
 
 		if (arToolKit.queryMarkerVisible(markerID2)) {
+			float[] transform2 = arToolKit.queryMarkerTransformation(markerID2);
 
+
+			//for (int i = 0; i < transform.length; ++i) {
+
+			Log.i("x2", String.valueOf(transform2[3]));
+			Log.i("y2", String.valueOf(transform2[9]));
+			Log.i("z2", String.valueOf(transform2[12]));
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID2), 0);
 
 			gl.glPushMatrix();
@@ -166,7 +180,7 @@ public class SimpleRenderer extends ARRenderer {
 		} else {
 			ARSimple.playM1();
 		}
-/*
+
 		if (arToolKit.queryMarkerVisible(markerID3)) {
 
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID3), 0);
@@ -178,8 +192,11 @@ public class SimpleRenderer extends ARRenderer {
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
+			ARSimple.pauseM0();
+		} else {
+			ARSimple.playM0();
 		}
-
+/*
 		if (arToolKit.queryMarkerVisible(markerID4)) {
 
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID4), 0);
