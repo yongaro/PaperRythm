@@ -76,11 +76,17 @@ public class SimpleRenderer extends ARRenderer {
 	private int markerID = -1;
 	private int markerID2 = -1;
 	private int markerID3 = -1;
-	//private int markerID4 = -1;
+	private int markerID4 = -1;
+	private int markerID5 = -1;
 
 	MediaPlayer m1 = null;
 	MediaPlayer m2 = null;
-	private Cube cube = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
+	private Cube cube1 = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
+	private Cube cube2 = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
+	private Cube cube3 = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
+	private Cube cube4 = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
+	private Cube cube5 = new Cube(40.0f, 0.0f, 0.0f, 20.0f);
+
 	private float angle = 0.0f;
 	private boolean spinning = false;
 	private Vector<Integer> markers;
@@ -94,9 +100,9 @@ public class SimpleRenderer extends ARRenderer {
 
 		markerID2 = arToolKit.addMarker("single;Data/sample1.patt;80");
 		markerID = arToolKit.addMarker("single;Data/sample2.patt;80");
-		markerID3 = arToolKit.addMarker("single;Data/patt.a;40");
-	//	markerID4 = arToolKit.addMarker("single;Data/patt.patt.b;40");
-
+		markerID3 = arToolKit.addMarker("single;Data/patt.hiro;80");
+		markerID4 = arToolKit.addMarker("single;Data/patt.kanji;80");
+		//markerID5 = arToolKit.addMarker("single;Data/patt.hiro;40");
 
 		//markers.add(arToolKit.addMarker("single;Data/patt.kanji;80"));
 		//markers.add(arToolKit.addMarker("single;Data/patt.hiro;80"));
@@ -136,7 +142,7 @@ public class SimpleRenderer extends ARRenderer {
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 
 		if (arToolKit.queryMarkerVisible(markerID)) {
-
+			Log.i("sample1", "sample1");
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID), 0);
 			float[] transform = arToolKit.queryMarkerTransformation(markerID);
 
@@ -150,7 +156,7 @@ public class SimpleRenderer extends ARRenderer {
 
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
-			cube.draw(gl);
+			cube1.draw(gl);
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
@@ -161,7 +167,7 @@ public class SimpleRenderer extends ARRenderer {
 
 		if (arToolKit.queryMarkerVisible(markerID2)) {
 			float[] transform2 = arToolKit.queryMarkerTransformation(markerID2);
-
+			Log.i("sample2 ", "sample2");
 
 			//for (int i = 0; i < transform.length; ++i) {
 
@@ -172,7 +178,7 @@ public class SimpleRenderer extends ARRenderer {
 
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
-			cube.draw(gl);
+			cube2.draw(gl);
 			gl.glPopMatrix();
 
 			ARSimple.pauseM1();
@@ -182,13 +188,28 @@ public class SimpleRenderer extends ARRenderer {
 		}
 
 		if (arToolKit.queryMarkerVisible(markerID3)) {
-
+			Log.i("hiro", "hiro");
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID3), 0);
 
 
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
-			cube.draw(gl);
+			cube3.draw(gl);
+			gl.glPopMatrix();
+
+			if (spinning) angle += 5.0f;
+			ARSimple.pauseM0();
+		} else {
+			ARSimple.playM0();
+		}
+
+		if (arToolKit.queryMarkerVisible(markerID4)) {
+
+			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID4), 0);
+
+			gl.glPushMatrix();
+			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
+			cube4.draw(gl);
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
@@ -197,17 +218,20 @@ public class SimpleRenderer extends ARRenderer {
 			ARSimple.playM0();
 		}
 /*
-		if (arToolKit.queryMarkerVisible(markerID4)) {
+		if (arToolKit.queryMarkerVisible(markerID5)) {
 
 			gl.glLoadMatrixf(arToolKit.queryMarkerTransformation(markerID4), 0);
 
 			gl.glPushMatrix();
 			gl.glRotatef(angle, 0.0f, 0.0f, 1.0f);
-			cube.draw(gl);
+			cube5.draw(gl);
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
-		}*/
+			ARSimple.pauseM1();
+		} else {
+			ARSimple.playM1();
+		}
 
 		/*
 		for (int i = 0; i < markers.size() -1; ++i) {

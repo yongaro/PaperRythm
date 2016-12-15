@@ -81,7 +81,7 @@ public class Cube {
 		};
 
 		float c = 1.0f;
-		float colors[] = { 
+	/*	float colors[] = {
 			0, 0, 0, c, // 0 black
 			c, 0, 0, c, // 1 red
 			c, c, 0, c, // 2 yellow
@@ -90,7 +90,22 @@ public class Cube {
 			c, 0, c, c, // 5 magenta
 			c, c, c, c, // 6 white
 			0, c, c, c, // 7 cyan
-		};
+		};*/
+		float r , g, b, a;
+		r = (float)(Math.random()*2);
+		g = (float)(Math.random()*2);
+		b = (float)(Math.random()*2);
+		a = 1.0f;
+
+		float colors[] = {r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				r, g, b, a,
+				};
 
 		byte indices[] = { 
 			0, 4, 5, 	0, 5, 1, 

@@ -251,14 +251,17 @@ public class ARSimple extends ARActivity {
 					m0.stop();
 					m1.stop();
 					m2.stop();
+					//m3.stop();
 
 					m0.reset();
 					m1.reset();
 					m2.reset();
+					//m3.reset();
 
 					m1 = MediaPlayer.create(app, newSound.get(0));
 					m2 = MediaPlayer.create(app, newSound.get(1));
 					m0 = MediaPlayer.create(app, newSound.get(2));
+					//m3 = MediaPlayer.create(app, newSound.get(3));
 				}
 
 				Toast.makeText(app, "Profil :" + Integer.toString((profile % 4) + 1), Toast.LENGTH_SHORT).show();
