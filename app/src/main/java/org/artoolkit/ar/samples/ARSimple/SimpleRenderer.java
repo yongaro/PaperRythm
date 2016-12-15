@@ -213,9 +213,9 @@ public class SimpleRenderer extends ARRenderer {
 			gl.glPopMatrix();
 
 			if (spinning) angle += 5.0f;
-			ARSimple.pauseM0();
+			ARSimple.pauseM3();
 		} else {
-			ARSimple.playM0();
+			ARSimple.playM3();
 		}
 /*
 		if (arToolKit.queryMarkerVisible(markerID5)) {
