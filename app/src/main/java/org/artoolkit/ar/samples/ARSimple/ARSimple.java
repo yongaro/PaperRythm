@@ -58,6 +58,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
@@ -229,6 +230,8 @@ public class ARSimple extends ARActivity {
 		m2 = MediaPlayer.create(this, R.raw.marker2);
 		m3 = MediaPlayer.create(this, R.raw.grelot);
 
+
+
 		simpleRenderer.bindPlayers(m1, m2);
 		mainLayout = (FrameLayout)this.findViewById(R.id.mainLayout);
 
@@ -240,6 +243,8 @@ public class ARSimple extends ARActivity {
 		}
 
 		 app = this;
+
+
 
 		// When the screen is tapped, inform the renderer and vibrate the phone
 		mainLayout.setOnClickListener(new View.OnClickListener() {
@@ -294,15 +299,13 @@ public class ARSimple extends ARActivity {
 				}
 				*/
 
-
-
-
 				Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 vib.vibrate(40);
             }
 
         });
 	}
+
 
 	/**
 	 * Provide our own SimpleRenderer.
@@ -313,7 +316,6 @@ public class ARSimple extends ARActivity {
 			Toast.makeText(this, "No camera permission - restart the app", Toast.LENGTH_LONG).show();
 			return null;
 		}
-
 		return new SimpleRenderer();
 	}
 	
