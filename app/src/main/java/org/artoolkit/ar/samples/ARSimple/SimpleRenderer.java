@@ -152,7 +152,7 @@ public class SimpleRenderer extends ARRenderer {
 
 	public void click(MediaPlayer m) {
 		//m.start();
-		Log.i("aa", "click click pouet pouet");
+		//Log.i("aa", "click click pouet pouet");
 		spinning = !spinning;
 	}
 
@@ -164,7 +164,12 @@ public class SimpleRenderer extends ARRenderer {
 				nbmarker++;
 		}
 		//lance la demo si tous les marqueurs sont presents
+        if (nbmarker != serieNotes.nbMarqueur && !demo) {
+            ARSimple.showSearchText();
+        }
+
 		if (nbmarker == serieNotes.nbMarqueur && demo) {
+            ARSimple.showSeeText();
 			demo();
 		}
         if (!demo){
@@ -423,10 +428,8 @@ public class SimpleRenderer extends ARRenderer {
             peutEtreAfficher.set(serieNotes.notes.get(noteToPlay -1), 1);
             noteToPlay = 0;
             Log.i("notes", "a ton tours");
+            ARSimple.showPlayText();
         }
-
-
-
 
 	}
 }

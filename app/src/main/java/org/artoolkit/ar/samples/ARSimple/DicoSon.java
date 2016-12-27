@@ -34,7 +34,7 @@ public class DicoSon {
         Vector<Integer> profil1 = new Vector<Integer>();
         profil1.add(R.raw.zic2);
         profil1.add(R.raw.triangle);
-        profil1.add(R.raw.caisseclaire);
+        profil1.add(R.raw.triangle);
         profil1.add(R.raw.bass1);
         soundBank.add(profil1);
 
@@ -51,7 +51,7 @@ public class DicoSon {
         profil3.add(R.raw.melody);
         profil3.add(R.raw.bass1);
         profil3.add(R.raw.triangle);
-        profil3.add(R.raw.grossecaisse);
+        profil3.add(R.raw.triangle);
         soundBank.add(profil3);
 
 

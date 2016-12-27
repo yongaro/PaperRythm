@@ -66,6 +66,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -88,13 +89,87 @@ public class ARSimple extends ARActivity {
     /**
      * The FrameLayout where the AR view is displayed.
      */
-    private FrameLayout mainLayout;
+	private FrameLayout mainLayout;
+	private static TextView seeText;
+	private static TextView searchText;
+	private static TextView playText;
+
 	boolean loaded = false;
 	int explosionId;
 
 	// Obligé de les jouer depuis une Activity
 	static MediaPlayer m1, m2, m3, m4, m5, m6, m7, m8, m9, m0;
 	static CountDownTimer t1, t2, t3, t4, t5, t6, t7, t8, t9, t0;
+
+	public static void showSeeText() {
+		seeText.post(new Runnable() {
+			@Override
+			public void run() {
+				seeText.setVisibility(View.VISIBLE);
+			}
+		});
+
+		searchText.post(new Runnable() {
+			@Override
+			public void run() {
+				searchText.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		playText.post(new Runnable() {
+			@Override
+			public void run() {
+				playText.setVisibility(View.INVISIBLE);
+			}
+		});
+	}
+
+	public static void showPlayText() {
+
+		seeText.post(new Runnable() {
+			@Override
+			public void run() {
+				seeText.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		searchText.post(new Runnable() {
+			@Override
+			public void run() {
+				searchText.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		playText.post(new Runnable() {
+			@Override
+			public void run() {
+				playText.setVisibility(View.VISIBLE);
+			}
+		});
+	}
+
+	public static void showSearchText() {
+		seeText.post(new Runnable() {
+			@Override
+			public void run() {
+				seeText.setVisibility(View.INVISIBLE);
+			}
+		});
+
+		searchText.post(new Runnable() {
+			@Override
+			public void run() {
+				searchText.setVisibility(View.VISIBLE);
+			}
+		});
+
+		playText.post(new Runnable() {
+			@Override
+			public void run() {
+				playText.setVisibility(View.INVISIBLE);
+			}
+		});
+	}
 
 	private static void pause(MediaPlayer media, CountDownTimer timer) {
 		if (media != null) {
@@ -234,6 +309,13 @@ public class ARSimple extends ARActivity {
 
 		simpleRenderer.bindPlayers(m1, m2);
 		mainLayout = (FrameLayout)this.findViewById(R.id.mainLayout);
+		seeText = (TextView) this.findViewById(R.id.see);
+		searchText = (TextView) this.findViewById(R.id.search);
+		playText = (TextView) this.findViewById(R.id.play);
+
+		//searchText.setVisibility(View.GONE);
+		seeText.setVisibility(View.GONE);
+		playText.setVisibility(View.GONE);
 
 		if (!checkCameraPermission()) {
 			//if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) { //ASK EVERY TIME - it's essential!
@@ -249,6 +331,7 @@ public class ARSimple extends ARActivity {
 		// When the screen is tapped, inform the renderer and vibrate the phone
 		mainLayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+				searchText.setVisibility(View.GONE);
 
                 simpleRenderer.click(m1);
 				Vector<Integer> newSound = DicoSon.getProfile(++profile);

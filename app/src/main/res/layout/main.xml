@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/topLayout" 
-	android:orientation="horizontal"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/topLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	app:layout_collapseParallaxMultiplier="0.0">
+
 
 <FrameLayout
-	android:id="@+id/mainLayout"
-	android:orientation="vertical"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"/>
+	android:layout_height="488dp">
+
+	<FrameLayout
+		android:id="@+id/mainLayout"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="491dp"
+		android:layout_gravity="bottom">
+
+	</FrameLayout>
+
+	<RelativeLayout
+		android:layout_height="22dp"
+		android:id="@+id/panel"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:text="Recherche des marqueurs ..."
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/search"
+			android:background="@color/colorAccent"
+			android:textColor="@android:color/background_light"
+			android:textStyle="normal|bold"
+			android:textAlignment="center"
+			android:textSize="10sp"
+			android:layout_weight="1" />
+
+		<TextView
+			android:text="Mémorise la séquence en cours !"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/see"
+			android:background="@color/see"
+			android:textColor="@android:color/background_light"
+			android:textStyle="normal|bold"
+			android:textAlignment="center"
+			android:textSize="10sp"
+			android:layout_weight="1" />
+
+		<TextView
+		android:text="A toi de jouer !"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/play"
+		android:background="@color/play"
+		android:textColor="@android:color/background_light"
+		android:textStyle="normal|bold"
+		android:textAlignment="center"
+			android:layout_weight="1" />
+
+	</RelativeLayout>
+
+</FrameLayout>
 
 </LinearLayout>
+
+
